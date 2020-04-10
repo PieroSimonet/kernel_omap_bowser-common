@@ -1973,8 +1973,7 @@ int hid_add_device(struct hid_device *hdev)
 		hid_debug_unregister(hdev);
 
 	return ret;
-
-	return ret;
+	
 }
 EXPORT_SYMBOL_GPL(hid_add_device);
 
