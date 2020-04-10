@@ -1964,18 +1964,15 @@ int hid_add_device(struct hid_device *hdev)
 	 * is converted to allow more than 20 bytes as the device name? */
 	dev_set_name(&hdev->dev, "%04X:%04X:%04X.%04X", hdev->bus,
 		     hdev->vendor, hdev->product, atomic_inc_return(&id));
-
-	if( hid_debug_register(hdev, dev_name(&hdev->dev)) == -1 )
-	{
-	   pr_err("can't register hid device\n");
-	   return -ENODEV;
-	}
 	
+	hid_debug_register(hdev, dev_name(&hdev->dev));
 	ret = device_add(&hdev->dev);
 	if (!ret)
 		hdev->status |= HID_STAT_ADDED;
 	else
 		hid_debug_unregister(hdev);
+
+	return ret;
 
 	return ret;
 }
